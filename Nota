@@ -1,0 +1,35 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <locale.h>
+
+int main(){
+	setlocale(LC_ALL, "Portuguese");
+	int questoes, nota=0, i, j;
+	printf("Quantidade de questões: ");
+	char gabarito[questoes];
+	char alunos[questoes]; 
+	char *p1=gabarito, *p2=alunos;
+	scanf("%d", &questoes);
+	p1=(char*)malloc(questoes*sizeof(char));
+	p2=(char*)malloc(questoes*sizeof(char));
+	for(i=0;i<questoes;i++){
+		printf("\nDigite a resposta da %dª questão: ", i+1);
+		scanf("%s", &gabarito[i]);
+	}
+	for(i=0;i<2;i++){
+		printf("\nAgora digite as respostas do %dº aluno.", i+1);
+		for(j=0;j<questoes;j++){
+			printf("\n%dª resposta: ", j+1);
+			scanf("\n%s", &alunos[j]);	
+		}
+		for (j=0;j<questoes;j++){
+			if(gabarito[i]==alunos[i]){
+				nota=(10/questoes)+nota;
+			}
+			printf("\nNota: %d", nota);
+		}
+	}
+	free(p1);
+	free(p2);
+	return(0);
+}
