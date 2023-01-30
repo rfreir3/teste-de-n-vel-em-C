@@ -2,33 +2,55 @@
 #include <stdlib.h>
 #include <locale.h>
 
+//Função de comparação do gabarito com as respostas dos alunos;
+float comparar(char *p1, char *p2, int x){
+	int i;
+	float y=0;
+	for(i=0;i<x;i++){
+		if(p1[i]==p2[i]){
+			y+=(10/x);
+		}
+	}
+	return y;
+}
+
 int main(){
 	setlocale(LC_ALL, "Portuguese");
-	int questoes, nota=0, i, j;
+	int questoes, i, j;
+	float nota=0, porcentagem=0;
+	
+	//delimitação do tamanho dos vetores;
 	printf("Quantidade de questões: ");
+	scanf("%d", &questoes);
+	
+	//alocação de variáveis;
 	char gabarito[questoes];
 	char alunos[questoes]; 
 	char *p1=gabarito, *p2=alunos;
-	scanf("%d", &questoes);
 	p1=(char*)malloc(questoes*sizeof(char));
 	p2=(char*)malloc(questoes*sizeof(char));
+	
+	//inserindo gabarito da prova;
 	for(i=0;i<questoes;i++){
 		printf("\nDigite a resposta da %dª questão: ", i+1);
-		scanf("%s", &gabarito[i]);
+		scanf("%s", &p1[i]);
 	}
+	
+	//definindo respostas;
 	for(i=0;i<2;i++){
 		printf("\nAgora digite as respostas do %dº aluno.", i+1);
 		for(j=0;j<questoes;j++){
 			printf("\n%dª resposta: ", j+1);
-			scanf("\n%s", &alunos[j]);	
+			scanf("\n%s", &p2[j]);	
 		}
-		for (j=0;j<questoes;j++){
-			if(gabarito[i]==alunos[i]){
-				nota=(10/questoes)+nota;
-			}
-			printf("\nNota: %d", nota);
+		nota=comparar(p1, p2, questoes);
+		printf("\nNota: %.2f", nota);
+		if(nota>=6){
+			porcentagem+=1;
 		}
 	}
+	//calculando porcentagem.
+	printf("\nPorcentagem de aprovação: %%%.1f", (porcentagem/2)*100);
 	free(p1);
 	free(p2);
 	return(0);
