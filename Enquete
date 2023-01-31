@@ -1,15 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <locale.h>
-#include <string.h>
 
 int main(){
-    setlocale(LC_ALL, "Portuguese");	//Definindo idioma usado no decorrer do código
 	
 	//Declaração de variáveis
 	int i, n1, n2, num, gostei=0, nao_gostei=0;
-	char *avaliacao=(char*)malloc(10*sizeof(char));
-	char *gen=(char*)malloc(9*sizeof(char));
+	char avaliacao[10], gen[9];
+	char *p1=avaliacao, *p2=gen;
 	
 	//Início do programa
 	printf("Quantas pessoas vão responder à enquete? ");
@@ -17,15 +14,19 @@ int main(){
     for(i=1;i<=num;i++){
 		printf("\nIndique seu sexo: Feminino ou Masculino. ");
     	gets(gen);
-    	//n1=strlen(gen);
+    	if(p2=='Feminino'){
+	        p2=(char*)realloc(p2, 8*sizeof(char));
+	    }
 		printf("\nSua avaliação: Gostei ou Não gostei. ");
     	gets(avaliacao);
-    	//n2=strlen(avaliacao);
-    	if((*gen=='Feminino')&&(*avaliacao=='Gostei')){
-    		gostei+=1;
-		}
-		else if((*gen=='Masculino')&&(*avaliacao=='Não gostei')){
+    	if(p1=='Gostei'){
+	        p1=(char*)realloc(p1, 6*sizeof(char));
+	    }
+		else if((p2=='Masculino')&&(p1=='Não gostei')){
     		nao_gostei+=1;
+		}
+		else if((p2=='Feminino')&&(p1=='Gostei')){
+    		gostei+=1;
 		}
     }
     printf("\nQuantidade de mulheres em porcentagem que avaliaram positivamente: %d", ((gostei/100)*num)*100);
