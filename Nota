@@ -8,7 +8,7 @@ float comparar(char *gabarito, char *alunos, int x){
 	float y=0;
 	for(i=0;i<x;i++){
 		if(alunos[i]==gabarito[i]){
-			y+=(10/x);
+			y+=10;
 		}
 	}
 	return y;
@@ -35,14 +35,14 @@ int main(){
 	}
 	
 	//definindo respostas;
-	for(i=0;i<2;i++){
+	for(i=0;i<10;i++){
 		printf("\nAgora digite as respostas do %dº aluno.", i+1);
 		for(j=0;j<questoes;j++){
 			printf("\n%dª resposta: ", j+1);
 			scanf("\n%s", &alunos[j]);	
 		}
 		nota=comparar(gabarito, alunos, questoes);
-		printf("\nNota: %.2f", nota);
+		printf("\nNota: %.2f", nota/questoes);
 		if(nota>=6){
 			porcentagem+=1;
 		}
