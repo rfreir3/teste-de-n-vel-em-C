@@ -1,35 +1,41 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <locale.h>
 
 int main(){
-	
-	//Declaração de variáveis
-	int i, n1, n2, num, gostei=0, nao_gostei=0;
-	char avaliacao[10], gen[9];
-	char *p1=avaliacao, *p2=gen;
+	setlocale(LC_ALL, "Portuguese");
+	//Declaração de variáveis e alocação de memória
+	int i, num, gostei=0, nao_gostei=0;
+	char *avaliacao, *gen;
+	avaliacao=(char*)malloc(10*sizeof(char));
+	gen=(char*)malloc(9*sizeof(char));
 	
 	//Início do programa
 	printf("Quantas pessoas vão responder à enquete? ");
 	scanf("%d", &num);
     for(i=1;i<=num;i++){
 		printf("\nIndique seu sexo: Feminino ou Masculino. ");
-    	gets(gen);
-    	if(p2=='Feminino'){
-	        p2=(char*)realloc(p2, 8*sizeof(char));
-	    }
+    	scanf("%^\ns", gen);
+    	if(strlen(gen)==8){
+    		gen=realloc(gen, strlen(gen)*sizeof(char));
+		}
 		printf("\nSua avaliação: Gostei ou Não gostei. ");
-    	gets(avaliacao);
-    	if(p1=='Gostei'){
-	        p1=(char*)realloc(p1, 6*sizeof(char));
-	    }
-		else if((p2=='Masculino')&&(p1=='Não gostei')){
-    		nao_gostei+=1;
+    	scanf("%^\ns", avaliacao);
+    	if(strlen(avaliacao)==6){
+    		avaliacao=realloc(avaliacao, strlen(gen)*sizeof(char));
 		}
-		else if((p2=='Feminino')&&(p1=='Gostei')){
-    		gostei+=1;
-		}
-    }
+	}
+	if((strlen(gen)==9)&&(strlen(avaliacao)==10)){
+    	nao_gostei+=1;
+	}
+	else if((strlen(gen)==8)&&(strlen(avaliacao)==6)){
+    	gostei+=1;
+	}
     printf("\nQuantidade de mulheres em porcentagem que avaliaram positivamente: %d", ((gostei/100)*num)*100);
     printf("\nQuantidade de homens em porcentagem que avaliaram negativamente: %d", ((nao_gostei/100)*num)*100);
+    free(avaliacao);
+    free(gen);
     return(0);
+    
 }
