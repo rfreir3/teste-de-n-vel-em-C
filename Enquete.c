@@ -10,17 +10,16 @@
 // c) determine a porcentagem de pessoas do sexo masculino que responderam que não
 // gostaram do produto.
 
-
 #include <stdio.h>
 #include <locale.h>
 
-struct questionario{
+typedef struct questionario{
 	char genero, avaliacao;
-};
+}Questionario;
 
 int main(){
 	setlocale(LC_ALL, "Portuguese");
-	struct questionario Questionario;
+	Questionario Questionario;
 	int qntd, contMN=0, contFS=0, i;
 	float contM=0, contF=0;
 	printf("Digite a quantidade de pessoas que irão responder esse questionário:\n");
