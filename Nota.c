@@ -1,3 +1,10 @@
+/*Questão 2) Escreva um programa para corrigir provas de múltipla escolha. Cada prova tem N
+questões e cada questão vale 10/N pontos. Os primeiros dados a serem lidos são o número de
+questões e o gabarito da prova. Em seguida, serão lidas as respectivas respostas de um total de
+10 alunos matriculados. Calcule e mostre:
+a) a nota obtida para cada aluno;
+b) a porcentagem de aprovação, sabendo-se que a nota mínima para ser aprovado é 6.*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <locale.h>
@@ -26,7 +33,15 @@ int main(){
 	//alocação de variáveis; 
 	char *gabarito, *alunos;
 	gabarito=(char*)malloc(questoes*sizeof(char));
+	if(gabarito==NULL){
+		printf("Erro!");
+		exit(1);
+	}
 	alunos=(char*)malloc(questoes*sizeof(char));
+	if(alunos==NULL){
+		printf("Erro!");
+		exit(1);
+	}
 	
 	//inserindo gabarito da prova;
 	for(i=0;i<questoes;i++){
@@ -48,7 +63,7 @@ int main(){
 		}
 	}
 	//calculando porcentagem.
-	printf("\nPorcentagem de aprovação: %%%.1f", (porcentagem/2)*100);
+	printf("\nPorcentagem de aprovação: %.1f%%", (porcentagem/10)*100);
 	free(gabarito);
 	free(alunos);
 	return(0);
