@@ -11,42 +11,39 @@
 // gostaram do produto.
 
 
-#include<stdio.h>
-#include<stdlib.h>
+#include <stdio.h>
+#include <locale.h>
+
+struct questionario{
+	char genero, avaliacao;
+};
 
 int main(){
-
-int n,i,contf = 0,contm = 0;
-
-printf("digite o numero de pessoas que responderam as perguntas\n");
-scanf("%d", &n);
-
-char *sexo = (char *)malloc(n * sizeof(char));
-int *op = (int *)malloc(n * sizeof(int));
-
-for( i = 0; i < n; i++){
-   printf("digite o sexo do intrevistado F para Feminino e M pra masculino\n");
-    scanf(" %c", &sexo[i]);
-    printf("digite 0 pra nao gostou e 1 pra gostou\n");
-    scanf("%d", &op[i]);
-}
-
-int j;
-for( j = 0; j < n; j++){
-
-if ((sexo[j] == 'F') && (op[j] == 1)){ contf++;}
-if ((sexo[j] == 'M') && (op[j] == 0)){ contm++;}
-
-}
-
-float FM, MM;
-FM = (contf*100)/n;
-MM = (contm*100)/n;
-system("cls");
-printf("A porcentagem de pessoas do sexo feminino : %.2f%%\n",FM);
-printf("A porcentagem de pessoas do sexo masculino : %.2f%%\n",MM);
-
-free(sexo);
-free(op);
-
+	setlocale(LC_ALL, "Portuguese");
+	struct questionario Questionario;
+	int qntd, contMN=0, contFS=0, i;
+	float contM=0, contF=0;
+	printf("Digite a quantidade de pessoas que irão responder esse questionário:\n");
+	scanf("%d", &qntd);
+	for(i=0;i<qntd;i++){
+		printf("Digite o seu gênero ([M]asculino ou [F]eminino):\n");
+		scanf("%s", &Questionario.genero);
+		printf("Gostou do produto? ([S]im ou [N]ão?):\n");
+		scanf("%s", &Questionario.avaliacao);
+		if(Questionario.genero=='M'){
+			contM+=1;
+			if(Questionario.avaliacao=='N'){
+			contMN+=1;
+			}
+		}
+		else if(Questionario.genero=='F'){
+			contF+=1;
+			if(Questionario.avaliacao=='S'){
+				contFS+=1;
+			}
+		}
+	}
+	printf("Total de pessoas do sexo masculino que não gostaram do produto: %d\nPorcentagem: %.1f%%\n", contMN, ((contMN/contM)*100));
+	printf("Total de pessoas do sexo feminino que gostaram do produto: %d\nPorcentagem: %.1f%%\n", contFS, ((contFS/contF)*100));
+	return(0);
 }
