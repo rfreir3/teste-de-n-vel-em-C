@@ -2,9 +2,9 @@
 #include <stdlib.h>
 
 int main(){
-	char vet[10];
-	
-	int n, compmaior, compmenor;
+	int vet[10];
+	char linha[100];
+	int n=0, compmaior, compmenor;
 	float media;
 	FILE* arq=fopen ("entrada.txt", "rt");
 	FILE* arq1=fopen ("saida.txt", "wt");
@@ -18,7 +18,7 @@ int main(){
 		return (1);
 	}
 	
-	while(fgets(vet, 10, arq) != NULL){
+	while(fgets(linha, 100, arq) != NULL){
 		media+=vet[n];
 		if(compmaior<vet[n]){
 			compmaior=vet[n];
@@ -27,8 +27,8 @@ int main(){
 			compmenor=vet[n];
 		}
 		n++;
-		fprintf(arq1, "Maior digito: %d\nMenor digito: %d\nMedia: %f\n", compmaior, compmenor, media/10);
 	}
+	fprintf(arq1, "Maior digito: %d\nMenor digito: %d\nMedia: %f\n", compmaior, compmenor, media/10);
 	fclose(arq1);
 	fclose(arq);
 	return (0);
