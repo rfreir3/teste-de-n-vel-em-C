@@ -1,29 +1,35 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 int main(){
-	int vet[10];
-	int compmaior=vet[0];
-	int compmenor=vet[0];
+	char vet[10];
+	
+	int n, compmaior, compmenor;
 	float media;
-	FILE* AA= fopen("gakinha.txt","wt"); //entrada
-	if(AA==NULL){
-		printf("Erro na abertura de arquivo!\n");
+	FILE* arq=fopen ("entrada.txt", "rt");
+	FILE* arq1=fopen ("saida.txt", "wt");
+	if(arq==NULL){
+		printf("Erro na abertura de arquivo de entrada!\n");
+		return(1);
+	}
+	if(arq1==NULL){
+		printf("Erro na abertura de arquivo de saida!\n");
+		fclose(arq);
 		return (1);
 	}
-	FILE* AS= fopen("gakinha1.txt", "wt"); //saida
-	if(AS==NULL){
-		printf("Erro no fechamento do arquivo!\n");
-		return (1);
-	}
-	while(fgets(vet,10,AA) != NULL){
-		if(compmenor>vet){
-			compmenor=vet;
+	
+	while(fgets(vet, 10, arq) != NULL){
+		media+=vet[n];
+		if(compmaior<vet[n]){
+			compmaior=vet[n];
 		}
-		else if(compmaior<vet){
-			compmaior=vet;
+		else if(compmenor>vet[n]){
+			compmenor=vet[n];
 		}
-		media+=vet;
-		fprintf(AS, "Maior numero: %d\nMenor numero: %d\n Media: %f", compmaior, compmenor, media/10);
+		n++;
+		fprintf(arq1, "Maior digito: %d\nMenor digito: %d\nMedia: %f\n", compmaior, compmenor, media/10);
 	}
-	return(0);
+	fclose(arq1);
+	fclose(arq);
+	return (0);
 }
